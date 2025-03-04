@@ -1,4 +1,5 @@
 using Game.Scripts.Infrastructure.GameStates;
+using Game.Scripts.Utils;
 using UnityEngine;
 
 namespace Game.Scripts.Infrastructure.GameBootstrap
@@ -9,7 +10,7 @@ namespace Game.Scripts.Infrastructure.GameBootstrap
 
         private void Awake()
         {
-            _stateMachine = new GameStateMachine();
+            _stateMachine = new GameStateMachine(new SceneLoader());
             _stateMachine.Enter<BootstrapState>();
         }
     }
