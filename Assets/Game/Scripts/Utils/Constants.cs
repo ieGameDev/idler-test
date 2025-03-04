@@ -8,6 +8,12 @@ namespace Game.Scripts.Utils
             public const string Main = "Main";
         }
 
+        public static class InputDirection
+        {
+            public const string Horizontal = "Horizontal";
+            public const string Vertical = "Vertical";
+        }
+
         public static class MenuItemNames
         {
             public const string HeaderName = "\ud83c\udfae ieGameDev";

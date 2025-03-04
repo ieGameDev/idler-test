@@ -1,4 +1,6 @@
+using Game.Scripts.Infrastructure.Services.Input;
 using Game.Scripts.Utils;
+using UnityEngine;
 
 namespace Game.Scripts.Infrastructure.GameStates
 {
@@ -11,6 +13,8 @@ namespace Game.Scripts.Infrastructure.GameStates
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
+            
+            InitialInputService();
         }
 
         public void Enter()
@@ -21,8 +25,16 @@ namespace Game.Scripts.Infrastructure.GameStates
         public void Exit()
         {
         }
-        
+
         private void EnterLoadLevel() =>
             _stateMachine.Enter<LoadLevelState>();
+        
+        private IInputService InitialInputService()
+        {
+            if (Application.isEditor)
+                return new DesktopInput();
+
+            return new MobileInput();
+        }
     }
 }

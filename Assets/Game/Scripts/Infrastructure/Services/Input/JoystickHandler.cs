@@ -1,0 +1,56 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+namespace Game.Scripts.Infrastructure.Services.Input
+{
+    public abstract class JoystickHandler : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
+    {
+        [SerializeField] private Image _joystickBackground;
+        [SerializeField] private Image _joystick;
+        
+        private RectTransform _backgroundRectTransform;
+        private RectTransform _joystickRectTransform;
+
+        protected Vector2 InputVector;
+        
+        private void Start()
+        {
+            _backgroundRectTransform = _joystickBackground.rectTransform;
+            _joystickRectTransform = _joystick.rectTransform;
+        }
+        
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_joystickBackground.rectTransform,
+                    eventData.position, null, out Vector2 joystickPosition))
+            {
+                float scaleFactorX = 2f / _backgroundRectTransform.sizeDelta.x;
+                float scaleFactorY = 2f / _backgroundRectTransform.sizeDelta.y;
+
+                joystickPosition.x *= scaleFactorX;
+                joystickPosition.y *= scaleFactorY;
+
+                InputVector = joystickPosition;
+                InputVector = Vector2.ClampMagnitude(InputVector, 1f);
+
+                _joystickRectTransform.anchoredPosition = new Vector2(
+                    InputVector.x * (_backgroundRectTransform.sizeDelta.x / 2),
+                    InputVector.y * (_backgroundRectTransform.sizeDelta.y / 2)
+                );
+            }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            OnDrag(eventData);
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            InputVector = Vector2.zero;
+            if (_joystick != null)
+                _joystickRectTransform.anchoredPosition = Vector2.zero;
+        }
+    }
+}
