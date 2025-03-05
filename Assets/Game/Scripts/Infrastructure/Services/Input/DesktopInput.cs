@@ -1,3 +1,4 @@
+using Game.Scripts.Utils;
 using UnityEngine;
 
 namespace Game.Scripts.Infrastructure.Services.Input
@@ -17,7 +18,8 @@ namespace Game.Scripts.Infrastructure.Services.Input
             }
         }
 
-        private static Vector2 DesktopInputAxis() => new(UnityEngine.Input.GetAxisRaw("Horizontal"),
-            UnityEngine.Input.GetAxisRaw("Vertical"));
+        private static Vector2 DesktopInputAxis() =>
+            new(UnityEngine.Input.GetAxisRaw(Constants.InputDirection.Horizontal),
+                UnityEngine.Input.GetAxisRaw(Constants.InputDirection.Vertical));
     }
 }

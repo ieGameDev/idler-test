@@ -1,5 +1,3 @@
-using System;
-using Game.Scripts.Player;
 using UnityEngine;
 
 namespace Game.Scripts.Logic
@@ -14,19 +12,14 @@ namespace Game.Scripts.Logic
         private Transform _target;
         private Vector3 _currentVelocity;
 
-        private void Start()
-        {
-            _target = FindAnyObjectByType<PlayerMovement>().transform;
-        }
-
         private void LateUpdate()
         {
             if (!_target) return;
             CameraFollowing();
         }
         
-        // public void Follow(GameObject target) => 
-        //     _target = target.transform;
+        public void Follow(GameObject target) => 
+            _target = target.transform;
 
         private void CameraFollowing()
         {

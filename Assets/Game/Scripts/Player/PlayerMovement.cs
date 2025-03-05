@@ -12,9 +12,9 @@ namespace Game.Scripts.Player
         private IInputService _inputService;
         private Camera _camera;
 
-        private void Start()
+        public void Construct(IInputService inputService)
         {
-            _inputService = new DesktopInput();
+            _inputService = inputService;
             _camera = Camera.main;
         }
 

@@ -14,6 +14,11 @@ namespace Game.Scripts.Utils
             public const string Vertical = "Vertical";
         }
 
+        public static class Characters
+        {
+            public const string PlayerInitialPoint = "PlayerSpawnPoint";
+        }
+
         public static class MenuItemNames
         {
             public const string HeaderName = "\ud83c\udfae ieGameDev";
