@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Scripts.Infrastructure.DI;
 using Game.Scripts.Infrastructure.Services.Factory;
+using Game.Scripts.Infrastructure.Services.Progress;
 using Game.Scripts.Utils;
 
 namespace Game.Scripts.Infrastructure.GameStates
@@ -16,7 +17,10 @@ namespace Game.Scripts.Infrastructure.GameStates
             _states = new Dictionary<Type, IState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, container),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, container.Single<IGameFactory>()),
+                [typeof(LoadProgressState)] = new LoadProgressState(this, container.Single<IProgressService>(),
+                    container.Single<ISaveLoadService>()),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, container.Single<IGameFactory>(),
+                    container.Single<IProgressService>()),
                 [typeof(GameLoopState)] = new GameLoopState(),
             };
         }

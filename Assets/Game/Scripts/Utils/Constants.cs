@@ -23,5 +23,10 @@ namespace Game.Scripts.Utils
         {
             public const string HeaderName = "\ud83c\udfae ieGameDev";
         }
+
+        public static class Progress
+        {
+            public const string ProgressKey = "Progress";
+        }
     }
 }

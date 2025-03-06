@@ -1,10 +1,12 @@
+using Game.Scripts.Data;
 using Game.Scripts.Infrastructure.Services.Input;
+using Game.Scripts.Infrastructure.Services.Progress;
 using UnityEngine;
 
 namespace Game.Scripts.Player
 {
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _speed;
@@ -19,6 +21,15 @@ namespace Game.Scripts.Player
         }
 
         private void Update() => Move();
+
+        public void SaveProgress(PlayerProgress progress) =>
+            progress.WorldData.PlayerPosition = transform.position;
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            Vector3 savedPosition = progress.WorldData.PlayerPosition;
+            ReplacePlayer(savedPosition);
+        }
 
         private void Move()
         {
@@ -35,6 +46,13 @@ namespace Game.Scripts.Player
 
             movementVector += Physics.gravity;
             _characterController.Move(movementVector * (_speed * Time.deltaTime));
+        }
+        
+        private void ReplacePlayer(Vector3 position)
+        {
+            _characterController.enabled = false;
+            transform.position = position;
+            _characterController.enabled = true;
         }
     }
 }

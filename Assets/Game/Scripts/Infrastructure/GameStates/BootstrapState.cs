@@ -1,6 +1,7 @@
 using Game.Scripts.Infrastructure.DI;
 using Game.Scripts.Infrastructure.Services.Factory;
 using Game.Scripts.Infrastructure.Services.Input;
+using Game.Scripts.Infrastructure.Services.Progress;
 using Game.Scripts.Utils;
 using UnityEngine;
 
@@ -32,12 +33,15 @@ namespace Game.Scripts.Infrastructure.GameStates
         }
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadLevelState>();
+            _stateMachine.Enter<LoadProgressState>();
 
         private void RegisterServices()
         {
             _container.RegisterSingle(InitialInputService());
+            _container.RegisterSingle<IProgressService>(new ProgressService());
             _container.RegisterSingle<IGameFactory>(new GameFactory(_container.Single<IInputService>()));
+            _container.RegisterSingle<ISaveLoadService>(new SaveLoadService(_container.Single<IProgressService>(),
+                _container.Single<IGameFactory>()));
         }
 
         private IInputService InitialInputService()

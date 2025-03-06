@@ -1,4 +1,5 @@
 using Game.Scripts.Infrastructure.Services.Factory;
+using Game.Scripts.Infrastructure.Services.Progress;
 using Game.Scripts.Logic;
 using Game.Scripts.Utils;
 using UnityEngine;
@@ -10,16 +11,20 @@ namespace Game.Scripts.Infrastructure.GameStates
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
+        private readonly IProgressService _progressService;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, IGameFactory gameFactory)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, IGameFactory gameFactory,
+            IProgressService progressService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _gameFactory = gameFactory;
+            _progressService = progressService;
         }
 
         public void Enter()
         {
+            _gameFactory.CleanUp();
             _sceneLoader.LoadScene(Constants.Levels.Main, OnLoaded);
         }
 
@@ -30,6 +35,7 @@ namespace Game.Scripts.Infrastructure.GameStates
         private void OnLoaded()
         {
             InitGameWorld();
+            InformProgressReaders();
 
             _stateMachine.Enter<GameLoopState>();
         }
@@ -52,5 +58,11 @@ namespace Game.Scripts.Infrastructure.GameStates
 
         private void InitCamera(GameObject player) =>
             Camera.main?.GetComponent<CameraFollow>().Follow(player);
+
+        private void InformProgressReaders()
+        {
+            foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
+                progressReader.LoadProgress(_progressService.Progress);
+        }
     }
 }
