@@ -9,6 +9,7 @@ namespace Game.Scripts.Player
     public class PlayerMovement : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private CharacterController _characterController;
+        [SerializeField] private PlayerAnimator _playerAnimator;
         [SerializeField] private float _speed;
 
         private IInputService _inputService;
@@ -42,7 +43,11 @@ namespace Game.Scripts.Player
                 movementVector.Normalize();
 
                 transform.forward = movementVector;
+                
+                _playerAnimator.MoveAnimation();
             }
+            else
+                _playerAnimator.StopMoving();
 
             movementVector += Physics.gravity;
             _characterController.Move(movementVector * (_speed * Time.deltaTime));
