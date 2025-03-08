@@ -17,6 +17,8 @@ namespace Game.Scripts.Utils
         public static class Characters
         {
             public const string PlayerInitialPoint = "PlayerSpawnPoint";
+            public const string PlayerTag = "Player";
+            public const string CustomerTag = "Customer";
         }
 
         public static class MenuItemNames

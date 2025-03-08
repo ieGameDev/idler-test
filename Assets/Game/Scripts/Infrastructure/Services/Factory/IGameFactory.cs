@@ -11,7 +11,9 @@ namespace Game.Scripts.Infrastructure.Services.Factory
         List<ISavedProgress> ProgressWriters { get; }
         
         GameObject CreatePlayer(Transform spawnPoint);
-        GameObject CreatePlayerUI();
+        GameObject CreateCustomer(Transform transform);
+        void CreatePlayerUI();
+        GameObject CreateCustomerSpawnManager();
 
         void CleanUp();
     }

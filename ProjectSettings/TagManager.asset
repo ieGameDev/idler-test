@@ -5,14 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerSpawnPoint
+  - CustomerSpawnPoint
+  - Customer
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Plane
   - Water
   - UI
-  - 
+  - OrderPoint
   - 
   - 
   - 
