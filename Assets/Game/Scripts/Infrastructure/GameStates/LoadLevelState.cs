@@ -78,10 +78,9 @@ namespace Game.Scripts.Infrastructure.GameStates
             return spawner;
         }
 
-        private void InitCustomerSpawnLogic(CustomerSpawner spawner, OrderTrigger[] orderTriggers,
-            GameObject player)
+        private void InitCustomerSpawnLogic(CustomerSpawner spawner, OrderTrigger[] orderTriggers, GameObject player)
         {
-            GameObject customerSpawnManager = _gameFactory.CreateCustomerSpawnManager();
+            GameObject customerSpawnManager = _gameFactory.CreateCustomerSpawnManager(orderTriggers.Length);
             CustomerSpawnManager manager = customerSpawnManager.GetComponent<CustomerSpawnManager>();
 
             manager.Initialize(spawner, orderTriggers, player, _staticData);

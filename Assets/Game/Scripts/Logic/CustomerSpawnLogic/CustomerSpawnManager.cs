@@ -9,8 +9,7 @@ namespace Game.Scripts.Logic.CustomerSpawnLogic
 {
     public class CustomerSpawnManager : MonoBehaviour
     {
-        private readonly Queue<OrderTrigger> _freeTriggers = new();
-        
+        private Queue<OrderTrigger> _freeTriggers = new();
         private CustomerSpawner _spawner;
         private GameObject _player;
         private CustomerData _customerData;

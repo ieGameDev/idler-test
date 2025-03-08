@@ -42,7 +42,7 @@ namespace Game.Scripts.Infrastructure.GameStates
             _container.RegisterSingle(InitialInputService());
             _container.RegisterSingle<IProgressService>(new ProgressService());
             _container.RegisterSingle<IGameFactory>(new GameFactory(_container.Single<IInputService>(),
-                _container.Single<IStaticDataService>()));
+                _container.Single<IStaticDataService>(), _container.Single<IProgressService>()));
             _container.RegisterSingle<ISaveLoadService>(new SaveLoadService(_container.Single<IProgressService>(),
                 _container.Single<IGameFactory>()));
         }
@@ -52,6 +52,7 @@ namespace Game.Scripts.Infrastructure.GameStates
             IStaticDataService staticData = new StaticDataService();
 
             staticData.LoadCustomer();
+            staticData.LoadDishes();
 
             _container.RegisterSingle(staticData);
         }

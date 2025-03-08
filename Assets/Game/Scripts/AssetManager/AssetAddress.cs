@@ -13,9 +13,16 @@ namespace Game.Scripts.AssetManager
             public const string CustomerSpawnManagerPath = "Logic/CustomerSpawnManager";
         }
 
+        public static class OrderPath
+        {
+            public const string DishPath = "Order/Dish";
+            public const string CashPath = "Order/Cash";
+        }
+
         public static class DataPath
         {
             public const string CustomerDataPath = "ScriptableObjects/CharactersData/CustomerData";
+            public const string DishesDataPath = "ScriptableObjects/Dishes";
         }
     }
 }

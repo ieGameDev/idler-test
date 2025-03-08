@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Game.Scripts.Infrastructure.DI;
 using Game.Scripts.Infrastructure.Services.Progress;
+using Game.Scripts.Logic.OrderLogic;
 using UnityEngine;
 
 namespace Game.Scripts.Infrastructure.Services.Factory
@@ -13,7 +14,8 @@ namespace Game.Scripts.Infrastructure.Services.Factory
         GameObject CreatePlayer(Transform spawnPoint);
         GameObject CreateCustomer(Transform transform);
         void CreatePlayerUI();
-        GameObject CreateCustomerSpawnManager();
+        GameObject CreateCustomerSpawnManager(int orderTriggersCount);
+        GameObject CreateDish(DishTypeId typeId, Order parent);
 
         void CleanUp();
     }

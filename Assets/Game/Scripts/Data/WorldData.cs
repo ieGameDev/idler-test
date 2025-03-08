@@ -7,5 +7,6 @@ namespace Game.Scripts.Data
     public class WorldData
     {
         public Vector3 PlayerPosition;
+        public CashData CashData = new();
     }
 }
