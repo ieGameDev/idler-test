@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5ef7c91deaf48aeb3eaa749b503b778, type: 3}
-  m_Name: DishData
+  m_Name: EggsData
   m_EditorClassIdentifier: 
-  DishTypeId: 0
-  DishName: Coffee
-  DishImage: {fileID: 21300000, guid: c1c20bd37f4c04541a9e216228ee6a20, type: 3}
-  Price: 2
+  DishTypeId: 2
+  DishName: Eggs
+  DishImage: {fileID: 21300000, guid: 1e50a9491394b4b6db9f72112167bf93, type: 3}
+  Price: 5

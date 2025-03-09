@@ -74,15 +74,11 @@ namespace Game.Scripts.UI
 
         public void ShowOrderList() => Show(_orderList.gameObject);
         
-        public void IncreaseOrderListCanvas()
-        {
+        public void IncreaseOrderListCanvas() => 
             _orderListCanvas.transform.localScale = Vector3.one;
-        }
 
-        public void DecreaseOrderListCanvas()
-        {
+        public void DecreaseOrderListCanvas() => 
             _orderListCanvas.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-        }
 
         public void ShowSmile(bool successOrder)
         {
@@ -94,24 +90,16 @@ namespace Game.Scripts.UI
 
         public void HideProgressImage() => Hide(_timer);
 
-        public void DecreaseProgressImage()
-        {
+        public void DecreaseProgressImage() => 
             _timer.transform.localScale = new Vector3(0.23f, 0.23f, 0.23f);
-        }
 
-        public void ShowProgressImage()
-        {
+        public void ShowProgressImage() => 
             _timer.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
-        }
 
-        private void Show(GameObject obj)
-        {
+        private void Show(GameObject obj) => 
             obj.transform.localScale = Vector3.one;
-        }
 
-        private void Hide(GameObject obj)
-        {
+        private void Hide(GameObject obj) => 
             obj.transform.localScale = Vector3.zero;
-        }
     }
 }

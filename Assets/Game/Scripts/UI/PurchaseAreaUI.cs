@@ -48,19 +48,13 @@ namespace Game.Scripts.UI
 
         public void HideAreaImageBackground() => Hide(_areaBackground.gameObject);
 
-        public void ShowAreaImageBackground()
-        {
+        public void ShowAreaImageBackground() => 
             _areaBackground.gameObject.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
-        }
 
-        private void Show(GameObject obj)
-        {
-             obj.transform.localScale = Vector3.one;
-        }
+        private void Show(GameObject obj) => 
+            obj.transform.localScale = Vector3.one;
 
-        private void Hide(GameObject obj)
-        {
+        private void Hide(GameObject obj) => 
             obj.transform.localScale = Vector3.zero;
-        }
     }
 }
