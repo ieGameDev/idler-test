@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,32 +82,17 @@ namespace Game.Scripts.UI
 
         public void ShowProgressImage()
         {
-            StartCoroutine(ScaleOverTime(_timer.transform, new Vector3(0.5f, 0.5f, 0.5f), 0.25f));
+           _timer.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
 
         private void Show(GameObject obj)
         {
-            StartCoroutine(ScaleOverTime(obj.transform, Vector3.one, 0.25f));
+            obj.transform.localScale = Vector3.one;
         }
 
         private void Hide(GameObject obj)
         {
-            StartCoroutine(ScaleOverTime(obj.transform, Vector3.one, 0.15f));
-        }
-
-        private IEnumerator ScaleOverTime(Transform target, Vector3 targetScale, float duration)
-        {
-            Vector3 startScale = target.localScale;
-            float time = 0;
-
-            while (time < duration)
-            {
-                target.localScale = Vector3.Lerp(startScale, targetScale, time / duration);
-                time += Time.deltaTime;
-                yield return null;
-            }
-
-            target.localScale = targetScale;
+            obj.transform.localScale = Vector3.zero;
         }
     }
 }
