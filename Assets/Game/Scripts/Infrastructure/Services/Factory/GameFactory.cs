@@ -41,12 +41,14 @@ namespace Game.Scripts.Infrastructure.Services.Factory
         public GameObject CreatePlayer(Transform spawnPoint)
         {
             _player = Object.Instantiate(Resources.Load<GameObject>(AssetAddress.Player.PlayerPath), spawnPoint);
-
+            
             PlayerMovement playerMovement = _player.GetComponent<PlayerMovement>();
             Order order = _player.GetComponentInChildren<Order>();
 
+            int capacity = _progressService.Progress.UpgradesData.Capacity;
+            
             playerMovement.Construct(_inputService);
-            order.Construct(2);
+            order.Construct(capacity);
 
             RegisterProgressWatchers(_player);
 

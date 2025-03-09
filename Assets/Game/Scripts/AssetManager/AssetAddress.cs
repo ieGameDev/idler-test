@@ -29,6 +29,7 @@ namespace Game.Scripts.AssetManager
             public const string CookingAreaDataPath = "ScriptableObjects/CookingAreas";
             public const string PurchasableAreaDataPath = "ScriptableObjects/PurchasableAreas";
             public const string WindowsConfigPath = "ScriptableObjects/UI/WindowStaticData";
+            public const string PlayerUpgradesPath = "ScriptableObjects/CharactersData/PlayerUpgradesData";
         }
     }
 }

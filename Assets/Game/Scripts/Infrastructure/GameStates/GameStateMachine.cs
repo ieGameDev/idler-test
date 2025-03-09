@@ -19,7 +19,7 @@ namespace Game.Scripts.Infrastructure.GameStates
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, container),
                 [typeof(LoadProgressState)] = new LoadProgressState(this, container.Single<IProgressService>(),
-                    container.Single<ISaveLoadService>()),
+                    container.Single<ISaveLoadService>(), container.Single<IStaticDataService>()),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, container.Single<IGameFactory>(),
                     container.Single<IProgressService>(), container.Single<IStaticDataService>(),
                     container.Single<IUIFactory>()),

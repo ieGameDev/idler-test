@@ -43,7 +43,7 @@ namespace Game.Scripts.Player
                 movementVector.Normalize();
 
                 transform.forward = movementVector;
-                
+
                 _playerAnimator.MoveAnimation();
             }
             else
@@ -52,7 +52,7 @@ namespace Game.Scripts.Player
             movementVector += Physics.gravity;
             _characterController.Move(movementVector * (_speed * Time.deltaTime));
         }
-        
+
         private void ReplacePlayer(Vector3 position)
         {
             _characterController.enabled = false;

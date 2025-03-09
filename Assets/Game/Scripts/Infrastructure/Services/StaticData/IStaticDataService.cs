@@ -14,10 +14,12 @@ namespace Game.Scripts.Infrastructure.Services.StaticData
         void LoadCookingAreas();
         void LoadPurchasableAreas();
         void LoadWindows();
+        void LoadPlayerUpgrades();
         CustomerData DataForCustomer();
         DishData DataForDish(DishTypeId typeId);
         CookingAreaData DataForCookingArea(DishTypeId typeId);
         PurchasableAreaData DataForPurchasableArea(PurchasableAreaTypeId typeId);
         WindowConfig ForWindow(WindowId windowId);
+        PlayerUpgradesData ForPlayerUpgrades();
     }
 }

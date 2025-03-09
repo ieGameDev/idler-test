@@ -1,4 +1,6 @@
 using Game.Scripts.Data;
+using Game.Scripts.Logic.CookingLogic;
+using Game.Scripts.Logic.ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,17 +9,16 @@ namespace Game.Scripts.UI.Windows
 {
     public class UpgradesWindow : BaseWindow
     {
-        [Header("Capacity Settings")]
-        [SerializeField] private Button _capacityButton;
-        [SerializeField] private TextMeshProUGUI _capacityPrice;
-        [SerializeField] private TextMeshProUGUI _capacityLevelText;
-        
         [Header("Reward Ad Settings")]
         [SerializeField] private Button _rewardAdButton;
         [SerializeField] private TextMeshProUGUI _rewardText;
         [SerializeField] private int _reward;
         
         private CashValue _cashValue;
+        private MoneyStatus _moneyStatus;
+        private PlayerUpgradesData _playerData;
+        private int _capacity;
+        private int _capacityLevel;
 
         protected override void OnAwake()
         {
@@ -26,12 +27,9 @@ namespace Game.Scripts.UI.Windows
             _rewardAdButton.onClick.AddListener(OnRewardAdClicked);
         }
 
-        private void OnDestroy() => 
-            _rewardAdButton.onClick.RemoveListener(OnRewardAdClicked);
-
         protected override void Initialize()
         {
-            UpdateRewardText();
+            UpdateText();
         }
 
         protected override void SubscribeUpdates()
@@ -40,15 +38,18 @@ namespace Game.Scripts.UI.Windows
 
         protected override void CleanUp()
         {
+            _rewardAdButton.onClick.RemoveListener(OnRewardAdClicked);
         }
-
+        
         private void OnRewardAdClicked()
         {
             //Reward Logic
             Progress.WorldData.CashData.Collect(_cashValue);
         }
 
-        private void UpdateRewardText() => 
+        private void UpdateText()
+        {
             _rewardText.text = $"+{_reward}$";
+        }
     }
 }

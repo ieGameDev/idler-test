@@ -61,6 +61,7 @@ namespace Game.Scripts.Infrastructure.GameStates
             staticData.LoadCookingAreas();
             staticData.LoadPurchasableAreas();
             staticData.LoadWindows();
+            staticData.LoadPlayerUpgrades();
 
             _container.RegisterSingle(staticData);
         }

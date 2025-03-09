@@ -6,5 +6,6 @@ namespace Game.Scripts.Data
     public class PlayerProgress
     {
         public WorldData WorldData = new();
+        public UpgradesData UpgradesData = new();
     }
 }

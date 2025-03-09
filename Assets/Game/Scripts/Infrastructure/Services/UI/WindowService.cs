@@ -6,10 +6,7 @@ namespace Game.Scripts.Infrastructure.Services.UI
     {
         private readonly IUIFactory _uiFactory;
 
-        public WindowService(IUIFactory uiFactory)
-        {
-            _uiFactory = uiFactory;
-        }
+        public WindowService(IUIFactory uiFactory) => _uiFactory = uiFactory;
 
         public void Open(WindowId windowId)
         {
