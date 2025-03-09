@@ -8,7 +8,9 @@ namespace Game.Scripts.Infrastructure.Services.StaticData
     {
         void LoadCustomer();
         void LoadDishes();
+        void LoadCookingAreas();
         CustomerData DataForCustomer();
         DishData DataForDish(DishTypeId typeId);
+        CookingAreaData DataForCookingArea(DishTypeId typeId);
     }
 }

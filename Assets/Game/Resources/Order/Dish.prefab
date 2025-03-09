@@ -223,9 +223,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c6eefe0b9c43308467abeeb5527fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dishImage: {fileID: 0}
-  _dishName: {fileID: 0}
-  _price: {fileID: 0}
+  _dishImage: {fileID: 8330680161721152795}
+  _dishName: {fileID: 2006499634049016267}
+  _price: {fileID: 8783417397187757178}
 --- !u!1 &2059031154690401097
 GameObject:
   m_ObjectHideFlags: 0

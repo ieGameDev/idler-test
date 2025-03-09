@@ -4,10 +4,12 @@ using Game.Scripts.Customers.Cash;
 using Game.Scripts.Infrastructure.Services.Input;
 using Game.Scripts.Infrastructure.Services.Progress;
 using Game.Scripts.Infrastructure.Services.StaticData;
+using Game.Scripts.Logic.CookingLogic;
 using Game.Scripts.Logic.ObjectPool;
 using Game.Scripts.Logic.OrderLogic;
 using Game.Scripts.Logic.ScriptableObjects;
 using Game.Scripts.Player;
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Infrastructure.Services.Factory
@@ -62,7 +64,7 @@ namespace Game.Scripts.Infrastructure.Services.Factory
             GameObject randomCustomer = customerPrefabs[Random.Range(0, customerPrefabs.Count)];
 
             GameObject customer = Object.Instantiate(randomCustomer, transform);
-            
+
             CashSpawner cashSpawner = customer.GetComponentInChildren<CashSpawner>();
             cashSpawner.Construct(_objectPool);
 
@@ -99,6 +101,32 @@ namespace Game.Scripts.Infrastructure.Services.Factory
             return cashItem;
         }
 
+        public GameObject CreateCookingArea(CookingArea cookingArea, DishTypeId dishTypeId, GameObject objectToShow)
+        {
+            CookingAreaData staticData = _staticData.DataForCookingArea(dishTypeId);
+
+            Sprite unlockedDishSprite = staticData.UnlockedDishSprite;
+            Sprite lockedDishSprite = staticData.LockedDishSprite;
+            float cookingTime = staticData.CookingTime;
+            DishTypeId typeId = staticData.DishTypeId;
+            bool isUnlocked = staticData.IsUnlocked;
+            int price = staticData.UnlockPrice;
+
+            GameObject area = Object.Instantiate(Resources.Load<GameObject>(AssetAddress.OrderPath.CookingAreaPath),
+                cookingArea.transform.position,
+                cookingArea.transform.rotation,
+                cookingArea.transform);
+
+            RegisterProgressWatchers(area);
+
+            area.GetComponentInChildren<CookDish>().Construct(this, typeId, cookingTime);
+            area.GetComponentInChildren<CookingAreaUI>().Construct(unlockedDishSprite, lockedDishSprite);
+            area.GetComponentInChildren<BuyCookingArea>()
+                .Construct(typeId, isUnlocked, price, _progressService.Progress.WorldData, objectToShow);
+
+            return area;
+        }
+
         public void CleanUp()
         {
             ProgressReaders.Clear();
@@ -118,7 +146,7 @@ namespace Game.Scripts.Infrastructure.Services.Factory
 
             ProgressReaders.Add(progressReader);
         }
-        
+
         private CashItem PreloadLootItem() =>
             CreateCash();
 
@@ -128,7 +156,7 @@ namespace Game.Scripts.Infrastructure.Services.Factory
             cash.ResetState();
         }
 
-        private void ReturnAction(CashItem cash) => 
+        private void ReturnAction(CashItem cash) =>
             cash.gameObject.SetActive(false);
     }
 }

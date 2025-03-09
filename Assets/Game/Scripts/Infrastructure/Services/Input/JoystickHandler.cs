@@ -29,12 +29,12 @@ namespace Game.Scripts.Infrastructure.Services.Input
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(_joystickBackground.rectTransform,
-                    eventData.position, null, out Vector2 joystickPosition)) 
+            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    _joystickBackground.rectTransform, eventData.position, _uiCamera, out Vector2 joystickPosition))
                 return;
-            
-            float scaleFactorX = 2f / _backgroundRectTransform.sizeDelta.x;
-            float scaleFactorY = 2f / _backgroundRectTransform.sizeDelta.y;
+
+            float scaleFactorX = 2f / (_backgroundRectTransform.sizeDelta.x * _canvas.scaleFactor);
+            float scaleFactorY = 2f / (_backgroundRectTransform.sizeDelta.y * _canvas.scaleFactor);
 
             joystickPosition.x *= scaleFactorX;
             joystickPosition.y *= scaleFactorY;
@@ -50,11 +50,11 @@ namespace Game.Scripts.Infrastructure.Services.Input
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(_joystickArea.rectTransform,
-                    eventData.position, _uiCamera, out Vector2 localPoint)) 
+            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    _joystickArea.rectTransform, eventData.position, _uiCamera, out Vector2 localPoint)) 
                 return;
-            
-            _backgroundRectTransform.anchoredPosition = localPoint;
+
+            _backgroundRectTransform.anchoredPosition = localPoint / _canvas.scaleFactor;
             _joystickRectTransform.anchoredPosition = Vector2.zero;
 
             _joystickBackground.gameObject.SetActive(true);

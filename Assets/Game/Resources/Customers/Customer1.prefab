@@ -70,9 +70,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1539770316303823240, guid: 618bce619746342f4bca6df09681e11d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400269649813950380, guid: 618bce619746342f4bca6df09681e11d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7993262200376089216, guid: 618bce619746342f4bca6df09681e11d, type: 3}
       propertyPath: m_Name
       value: Customer1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993262200376089216, guid: 618bce619746342f4bca6df09681e11d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525110314950540747, guid: 618bce619746342f4bca6df09681e11d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8525749766731161950, guid: 618bce619746342f4bca6df09681e11d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -113,6 +129,10 @@ PrefabInstance:
     - target: {fileID: 8525749766731161950, guid: 618bce619746342f4bca6df09681e11d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616621999359058392, guid: 618bce619746342f4bca6df09681e11d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

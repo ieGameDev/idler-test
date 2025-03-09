@@ -15,8 +15,8 @@ TagManager:
   - Water
   - UI
   - OrderPoint
-  - 
-  - 
+  - Player
+  - Customer
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Buttons
+    uniqueID: 2940291211
     locked: 0

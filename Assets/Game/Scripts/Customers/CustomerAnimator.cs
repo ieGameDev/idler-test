@@ -9,6 +9,8 @@ namespace Game.Scripts.Customers
 
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int IsSitting = Animator.StringToHash("IsSitting");
+        private static readonly int FailedOrder = Animator.StringToHash("FailedOrder");
+        private static readonly int SuccessOrder = Animator.StringToHash("SuccessOrder");
 
         public void MoveAnimation() =>
             _animator.SetBool(IsMoving, true);
@@ -21,5 +23,11 @@ namespace Game.Scripts.Customers
 
         public void StopSitting() =>
             _animator.SetBool(IsSitting, false);
+        
+        public void SadAnimation() =>
+            _animator.SetTrigger(FailedOrder);
+
+        public void HappyAnimation() =>
+            _animator.SetTrigger(SuccessOrder);
     }
 }

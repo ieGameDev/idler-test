@@ -17,12 +17,14 @@ namespace Game.Scripts.AssetManager
         {
             public const string DishPath = "Order/Dish";
             public const string CashPath = "Order/Cash";
+            public const string CookingAreaPath = "Order/CookingArea";
         }
 
         public static class DataPath
         {
             public const string CustomerDataPath = "ScriptableObjects/CharactersData/CustomerData";
             public const string DishesDataPath = "ScriptableObjects/Dishes";
+            public const string CookingAreaDataPath = "ScriptableObjects/CookingAreas";
         }
     }
 }

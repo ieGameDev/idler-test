@@ -8,5 +8,6 @@ namespace Game.Scripts.Data
     {
         public Vector3 PlayerPosition;
         public CashData CashData = new();
+        public CookingAreasData CookingAreasData = new();
     }
 }

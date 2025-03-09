@@ -4,16 +4,24 @@ using UnityEngine;
 
 namespace Game.Scripts.Logic.OrderLogic
 {
+    public enum TriggerType
+    {
+        StandingPlace,
+        SeatedPlace
+    }
+    
     public class OrderTrigger : MonoBehaviour
     {
         public event Action<GameObject> OnPlaceAvailable;
         public event Action OnReadyForOrder;
         
+        [SerializeField] private TriggerType _triggerType;
         [SerializeField] private GameObject _chair;
         [SerializeField] private Transform _exitPoint;
         
         private bool _placeIsOccupied;
 
+        public TriggerType TriggerType => _triggerType;
         public GameObject Chair => _chair;
         public Transform ExitPoint => _exitPoint;
         

@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using Game.Scripts.Infrastructure.Services.Factory;
 using Game.Scripts.Infrastructure.Services.Progress;
 using Game.Scripts.Infrastructure.Services.StaticData;
 using Game.Scripts.Logic;
+using Game.Scripts.Logic.CookingLogic;
 using Game.Scripts.Logic.CustomerSpawnLogic;
 using Game.Scripts.Logic.OrderLogic;
 using Game.Scripts.Utils;
@@ -47,12 +49,30 @@ namespace Game.Scripts.Infrastructure.GameStates
 
         private void InitGameWorld()
         {
+            var cookingAreas = InitializingCookingArea();
             OrderTrigger[] orderTriggers = InitializingOrderTriggers();
             GameObject player = InitPlayer();
             InitPlayerUI();
             InitCamera(player);
-            CustomerSpawner spawner = InitCustomerSpawner();
+            CustomerSpawner spawner = InitCustomerSpawner(cookingAreas);
             InitCustomerSpawnLogic(spawner, orderTriggers, player);
+        }
+
+        private List<CookDish> InitializingCookingArea()
+        {
+            CookingArea[] areas = Object.FindObjectsByType<CookingArea>(FindObjectsSortMode.None);
+
+            List<GameObject> cookingAreas = new();
+            List<CookDish> cookingDishes = new();
+
+            foreach (CookingArea cookingArea in areas)
+                cookingAreas.Add(_gameFactory.CreateCookingArea(cookingArea, cookingArea.DishTypeId,
+                    cookingArea.ObjectToShow));
+
+            foreach (GameObject area in cookingAreas)
+                cookingDishes.Add(area.GetComponentInChildren<CookDish>());
+
+            return cookingDishes;
         }
 
         private OrderTrigger[] InitializingOrderTriggers() =>
@@ -70,10 +90,10 @@ namespace Game.Scripts.Infrastructure.GameStates
         private void InitCamera(GameObject player) =>
             Camera.main?.GetComponent<CameraFollow>().Follow(player);
 
-        private CustomerSpawner InitCustomerSpawner()
+        private CustomerSpawner InitCustomerSpawner(List<CookDish> cookingAreas)
         {
             CustomerSpawner spawner = Object.FindFirstObjectByType<CustomerSpawner>();
-            spawner.Construct(_gameFactory, _staticData);
+            spawner.Construct(_gameFactory, _staticData, cookingAreas);
 
             return spawner;
         }
