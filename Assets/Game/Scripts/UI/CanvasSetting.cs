@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Scripts.UI
 {
-    public class JoystickCanvasSetting : MonoBehaviour
+    public class CanvasSetting : MonoBehaviour
     {
         private void Start()
         {

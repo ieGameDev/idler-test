@@ -6,6 +6,7 @@ using Game.Scripts.Logic;
 using Game.Scripts.Logic.CookingLogic;
 using Game.Scripts.Logic.CustomerSpawnLogic;
 using Game.Scripts.Logic.OrderLogic;
+using Game.Scripts.Logic.PurchaseAreaLogic;
 using Game.Scripts.Utils;
 using UnityEngine;
 
@@ -49,9 +50,10 @@ namespace Game.Scripts.Infrastructure.GameStates
 
         private void InitGameWorld()
         {
-            var cookingAreas = InitializingCookingArea();
+            List<CookDish> cookingAreas = InitializingCookingArea();
             OrderTrigger[] orderTriggers = InitializingOrderTriggers();
             GameObject player = InitPlayer();
+            InitPurchasableArea();
             InitPlayerUI();
             InitCamera(player);
             CustomerSpawner spawner = InitCustomerSpawner(cookingAreas);
@@ -104,6 +106,14 @@ namespace Game.Scripts.Infrastructure.GameStates
             CustomerSpawnManager manager = customerSpawnManager.GetComponent<CustomerSpawnManager>();
 
             manager.Initialize(spawner, orderTriggers, player, _staticData);
+        }
+        
+        private void InitPurchasableArea()
+        {
+            PurchasableArea[] areas = Object.FindObjectsByType<PurchasableArea>(FindObjectsSortMode.None);
+
+            foreach (PurchasableArea area in areas)
+                _gameFactory.CreatePurchasableArea(area, area.AreaTypeId);
         }
 
         private void InformProgressReaders()

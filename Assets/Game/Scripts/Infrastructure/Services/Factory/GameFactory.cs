@@ -7,6 +7,7 @@ using Game.Scripts.Infrastructure.Services.StaticData;
 using Game.Scripts.Logic.CookingLogic;
 using Game.Scripts.Logic.ObjectPool;
 using Game.Scripts.Logic.OrderLogic;
+using Game.Scripts.Logic.PurchaseAreaLogic;
 using Game.Scripts.Logic.ScriptableObjects;
 using Game.Scripts.Player;
 using Game.Scripts.UI;
@@ -48,8 +49,13 @@ namespace Game.Scripts.Infrastructure.Services.Factory
             return _player;
         }
 
-        public void CreatePlayerUI() =>
-            Object.Instantiate(Resources.Load<GameObject>(AssetAddress.Player.HUDPath));
+        public void CreatePlayerUI()
+        {
+            GameObject playerUI = Object.Instantiate(Resources.Load<GameObject>(AssetAddress.Player.HUDPath));
+            playerUI.GetComponentInChildren<CashCounter>().Construct(_progressService.Progress.WorldData);
+
+            RegisterProgressWatchers(playerUI);
+        }
 
         public GameObject CreateCustomerSpawnManager(int orderTriggersCount)
         {
@@ -123,6 +129,29 @@ namespace Game.Scripts.Infrastructure.Services.Factory
             area.GetComponentInChildren<CookingAreaUI>().Construct(unlockedDishSprite, lockedDishSprite);
             area.GetComponentInChildren<BuyCookingArea>()
                 .Construct(typeId, isUnlocked, price, _progressService.Progress.WorldData, objectToShow);
+
+            return area;
+        }
+
+        public GameObject CreatePurchasableArea(PurchasableArea purchasableArea, PurchasableAreaTypeId typeId)
+        {
+            PurchasableAreaData staticData = _staticData.DataForPurchasableArea(typeId);
+
+            int price = staticData.UnlockPrice;
+            Sprite icon = staticData.Icon;
+
+            GameObject area = Object.Instantiate(Resources.Load<GameObject>(AssetAddress.OrderPath.PurchasableAreaPath),
+                purchasableArea.transform.position,
+                purchasableArea.transform.rotation,
+                purchasableArea.transform);
+
+            RegisterProgressWatchers(area);
+
+            area.GetComponentInChildren<BuyPurchasableArea>().Construct(typeId, price, icon,
+                _progressService.Progress.WorldData,
+                purchasableArea.ObjectsToShow,
+                purchasableArea.TriggerPoints,
+                purchasableArea.ObjectsToHide);
 
             return area;
         }

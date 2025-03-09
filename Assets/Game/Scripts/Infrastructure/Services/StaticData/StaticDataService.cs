@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Scripts.AssetManager;
 using Game.Scripts.Logic.OrderLogic;
+using Game.Scripts.Logic.PurchaseAreaLogic;
 using Game.Scripts.Logic.ScriptableObjects;
 using UnityEngine;
 using static Game.Scripts.AssetManager.AssetAddress;
@@ -13,6 +14,7 @@ namespace Game.Scripts.Infrastructure.Services.StaticData
         private CustomerData _customerData;
         private Dictionary<DishTypeId, DishData> _orders;
         private Dictionary<DishTypeId, CookingAreaData> _cookingAreas;
+        private Dictionary<PurchasableAreaTypeId, PurchasableAreaData> _purchasableAreas;
         
         public void LoadCustomer() =>
             _customerData = Resources.Load<CustomerData>(DataPath.CustomerDataPath);
@@ -29,6 +31,12 @@ namespace Game.Scripts.Infrastructure.Services.StaticData
                 .ToDictionary(x => x.DishTypeId, x => x);
         }
         
+        public void LoadPurchasableAreas()
+        {
+            _purchasableAreas = Resources.LoadAll<PurchasableAreaData>(DataPath.PurchasableAreaDataPath)
+                .ToDictionary(x => x.TypeId, x => x);
+        }
+        
         public CustomerData DataForCustomer() =>
             _customerData;
         
@@ -37,5 +45,8 @@ namespace Game.Scripts.Infrastructure.Services.StaticData
         
         public CookingAreaData DataForCookingArea(DishTypeId typeId) =>
             _cookingAreas.GetValueOrDefault(typeId);
+        
+        public PurchasableAreaData DataForPurchasableArea(PurchasableAreaTypeId typeId) =>
+            _purchasableAreas.GetValueOrDefault(typeId);
     }
 }

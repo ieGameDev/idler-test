@@ -18,6 +18,7 @@ namespace Game.Scripts.AssetManager
             public const string DishPath = "Order/Dish";
             public const string CashPath = "Order/Cash";
             public const string CookingAreaPath = "Order/CookingArea";
+            public const string PurchasableAreaPath = "Logic/PurchasableArea";
         }
 
         public static class DataPath
@@ -25,6 +26,7 @@ namespace Game.Scripts.AssetManager
             public const string CustomerDataPath = "ScriptableObjects/CharactersData/CustomerData";
             public const string DishesDataPath = "ScriptableObjects/Dishes";
             public const string CookingAreaDataPath = "ScriptableObjects/CookingAreas";
+            public const string PurchasableAreaDataPath = "ScriptableObjects/PurchasableAreas";
         }
     }
 }

@@ -54,6 +54,7 @@ namespace Game.Scripts.Infrastructure.GameStates
             staticData.LoadCustomer();
             staticData.LoadDishes();
             staticData.LoadCookingAreas();
+            staticData.LoadPurchasableAreas();
 
             _container.RegisterSingle(staticData);
         }

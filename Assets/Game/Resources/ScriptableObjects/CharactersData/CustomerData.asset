@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: CustomerData
   m_EditorClassIdentifier: 
   WaitingTime: 60
-  EatingTime: 15
+  EatingTime: 5
   SpawnDelay: 2
   CustomerPrefabs:
   - {fileID: 7846153963867436974, guid: 6804780f62b60413fb1820b9a43f07ab, type: 3}
+  - {fileID: 7127063135473523265, guid: cad480b3d4ef94431be6da7fe8ffd18f, type: 3}
+  - {fileID: 77403192401804580, guid: 8e32492eb272345579c916eb1f8305b3, type: 3}
+  - {fileID: 2667480222910714510, guid: d8ef3c451f881412c864bbb757e84d44, type: 3}
