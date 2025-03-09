@@ -19,15 +19,17 @@ namespace Game.Scripts.Infrastructure.GameStates
         private readonly IGameFactory _gameFactory;
         private readonly IProgressService _progressService;
         private readonly IStaticDataService _staticData;
+        private readonly IUIFactory _uiFactory;
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, IGameFactory gameFactory,
-            IProgressService progressService, IStaticDataService staticData)
+            IProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _gameFactory = gameFactory;
             _progressService = progressService;
             _staticData = staticData;
+            _uiFactory = uiFactory;
         }
 
         public void Enter()
@@ -42,11 +44,14 @@ namespace Game.Scripts.Infrastructure.GameStates
 
         private void OnLoaded()
         {
+            InitUIRoot();
             InitGameWorld();
             InformProgressReaders();
 
             _stateMachine.Enter<GameLoopState>();
         }
+
+        private void InitUIRoot() => _uiFactory.CreateUIRoot();
 
         private void InitGameWorld()
         {
@@ -107,7 +112,7 @@ namespace Game.Scripts.Infrastructure.GameStates
 
             manager.Initialize(spawner, orderTriggers, player, _staticData);
         }
-        
+
         private void InitPurchasableArea()
         {
             PurchasableArea[] areas = Object.FindObjectsByType<PurchasableArea>(FindObjectsSortMode.None);

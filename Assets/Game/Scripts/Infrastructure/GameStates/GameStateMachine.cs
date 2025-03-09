@@ -21,7 +21,8 @@ namespace Game.Scripts.Infrastructure.GameStates
                 [typeof(LoadProgressState)] = new LoadProgressState(this, container.Single<IProgressService>(),
                     container.Single<ISaveLoadService>()),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, container.Single<IGameFactory>(),
-                    container.Single<IProgressService>(), container.Single<IStaticDataService>()),
+                    container.Single<IProgressService>(), container.Single<IStaticDataService>(),
+                    container.Single<IUIFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(),
             };
         }

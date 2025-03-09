@@ -6,6 +6,7 @@ namespace Game.Scripts.AssetManager
         {
             public const string PlayerPath = "Player/Player";
             public const string HUDPath = "Player/PlayerUI";
+            public const string UIRootPath = "UI/UIRoot";
         }
 
         public static class Customers
@@ -27,6 +28,7 @@ namespace Game.Scripts.AssetManager
             public const string DishesDataPath = "ScriptableObjects/Dishes";
             public const string CookingAreaDataPath = "ScriptableObjects/CookingAreas";
             public const string PurchasableAreaDataPath = "ScriptableObjects/PurchasableAreas";
+            public const string WindowsConfigPath = "ScriptableObjects/UI/WindowStaticData";
         }
     }
 }

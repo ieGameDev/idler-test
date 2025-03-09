@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Game.Scripts.AssetManager;
+using Game.Scripts.Infrastructure.Services.UI;
 using Game.Scripts.Logic.OrderLogic;
 using Game.Scripts.Logic.PurchaseAreaLogic;
 using Game.Scripts.Logic.ScriptableObjects;
@@ -15,6 +15,7 @@ namespace Game.Scripts.Infrastructure.Services.StaticData
         private Dictionary<DishTypeId, DishData> _orders;
         private Dictionary<DishTypeId, CookingAreaData> _cookingAreas;
         private Dictionary<PurchasableAreaTypeId, PurchasableAreaData> _purchasableAreas;
+        private Dictionary<WindowId, WindowConfig> _windowConfigs;
         
         public void LoadCustomer() =>
             _customerData = Resources.Load<CustomerData>(DataPath.CustomerDataPath);
@@ -37,6 +38,12 @@ namespace Game.Scripts.Infrastructure.Services.StaticData
                 .ToDictionary(x => x.TypeId, x => x);
         }
         
+        public void LoadWindows()
+        {
+            _windowConfigs = Resources.Load<WindowStaticData>(DataPath.WindowsConfigPath).WindowConfigs
+                .ToDictionary(x => x.WindowID, x => x);
+        }
+        
         public CustomerData DataForCustomer() =>
             _customerData;
         
@@ -48,5 +55,8 @@ namespace Game.Scripts.Infrastructure.Services.StaticData
         
         public PurchasableAreaData DataForPurchasableArea(PurchasableAreaTypeId typeId) =>
             _purchasableAreas.GetValueOrDefault(typeId);
+        
+        public WindowConfig ForWindow(WindowId windowId) =>
+            _windowConfigs.GetValueOrDefault(windowId);
     }
 }

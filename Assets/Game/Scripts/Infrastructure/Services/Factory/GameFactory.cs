@@ -4,6 +4,7 @@ using Game.Scripts.Customers.Cash;
 using Game.Scripts.Infrastructure.Services.Input;
 using Game.Scripts.Infrastructure.Services.Progress;
 using Game.Scripts.Infrastructure.Services.StaticData;
+using Game.Scripts.Infrastructure.Services.UI;
 using Game.Scripts.Logic.CookingLogic;
 using Game.Scripts.Logic.ObjectPool;
 using Game.Scripts.Logic.OrderLogic;
@@ -20,6 +21,7 @@ namespace Game.Scripts.Infrastructure.Services.Factory
         private readonly IInputService _inputService;
         private readonly IStaticDataService _staticData;
         private readonly IProgressService _progressService;
+        private readonly IWindowService _windowService;
 
         private GameObject _player;
         private PoolBase<CashItem> _objectPool;
@@ -27,11 +29,13 @@ namespace Game.Scripts.Infrastructure.Services.Factory
         public List<ISavedProgressReader> ProgressReaders { get; } = new();
         public List<ISavedProgress> ProgressWriters { get; } = new();
 
-        public GameFactory(IInputService inputService, IStaticDataService staticData, IProgressService progressService)
+        public GameFactory(IInputService inputService, IStaticDataService staticData, IProgressService progressService,
+            IWindowService windowService)
         {
             _inputService = inputService;
             _staticData = staticData;
             _progressService = progressService;
+            _windowService = windowService;
         }
 
         public GameObject CreatePlayer(Transform spawnPoint)
@@ -49,12 +53,17 @@ namespace Game.Scripts.Infrastructure.Services.Factory
             return _player;
         }
 
-        public void CreatePlayerUI()
+        public GameObject CreatePlayerUI()
         {
             GameObject playerUI = Object.Instantiate(Resources.Load<GameObject>(AssetAddress.Player.HUDPath));
             playerUI.GetComponentInChildren<CashCounter>().Construct(_progressService.Progress.WorldData);
 
+            foreach (OpenWindowButton button in playerUI.GetComponentsInChildren<OpenWindowButton>())
+                button.Construct(_windowService);
+
             RegisterProgressWatchers(playerUI);
+            
+            return playerUI;
         }
 
         public GameObject CreateCustomerSpawnManager(int orderTriggersCount)

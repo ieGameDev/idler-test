@@ -3,6 +3,7 @@ using Game.Scripts.Infrastructure.Services.Factory;
 using Game.Scripts.Infrastructure.Services.Input;
 using Game.Scripts.Infrastructure.Services.Progress;
 using Game.Scripts.Infrastructure.Services.StaticData;
+using Game.Scripts.Infrastructure.Services.UI;
 using Game.Scripts.Utils;
 using UnityEngine;
 
@@ -41,8 +42,12 @@ namespace Game.Scripts.Infrastructure.GameStates
             RegisterStaticData();
             _container.RegisterSingle(InitialInputService());
             _container.RegisterSingle<IProgressService>(new ProgressService());
+            _container.RegisterSingle<IUIFactory>(new UIFactory(_container.Single<IStaticDataService>(),
+                _container.Single<IProgressService>()));
+            _container.RegisterSingle<IWindowService>(new WindowService(_container.Single<IUIFactory>()));
             _container.RegisterSingle<IGameFactory>(new GameFactory(_container.Single<IInputService>(),
-                _container.Single<IStaticDataService>(), _container.Single<IProgressService>()));
+                _container.Single<IStaticDataService>(), _container.Single<IProgressService>(),
+                _container.Single<IWindowService>()));
             _container.RegisterSingle<ISaveLoadService>(new SaveLoadService(_container.Single<IProgressService>(),
                 _container.Single<IGameFactory>()));
         }
@@ -55,6 +60,7 @@ namespace Game.Scripts.Infrastructure.GameStates
             staticData.LoadDishes();
             staticData.LoadCookingAreas();
             staticData.LoadPurchasableAreas();
+            staticData.LoadWindows();
 
             _container.RegisterSingle(staticData);
         }
